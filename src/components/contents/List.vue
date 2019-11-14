@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     _getLists () {
-      if (this.isRepeat) return
+      // if (this.isRepeat) return
       if (this.isEnd) return
       this.isRepeat = true
       let options = {
@@ -141,26 +141,27 @@ export default {
         // 对于异常的判断，res.code 非200，我们给用户一个提示
         // 判断是否lists长度为0，如果为零即可以直接赋值
         // 当Lists长度不为0，后面请求的数据，加入到Lists里面来
-        if (res.code === 200) {
-          // 判断res.data的长度，如果小于20条，则是最后页
-          if (res.data.length < this.limit) {
-            this.isEnd = true
-          }
-          // 加入一个请求锁，防止用户多次点击，等待数据返回后，再打开
-          if (this.lists.length === 0) {
-            this.lists = res.data
-          } else {
-            this.lists = this.lists.concat(res.data)
-          }
-        }
+        this.lists = []
+        // if (res.code === 200) {
+        //   // 判断res.data的长度，如果小于20条，则是最后页
+        //   if (res.data.length < this.limit) {
+        //     this.isEnd = true
+        //   }
+        //   // 加入一个请求锁，防止用户多次点击，等待数据返回后，再打开
+        //   if (this.lists.length === 0) {
+        //     this.lists = res.data
+        //   } else {
+        //     this.lists = this.lists.concat(res.data)
+        //   }
+        // }
       }).catch((err) => {
         if (err) {
-          this.$alert(err.msg)
+          this.$alert(err.message)
         }
       })
     },
     nextPage () {
-      this.page++
+      // this.page++
       this._getLists()
     },
     search (val) {
